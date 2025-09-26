@@ -69,8 +69,10 @@ func initDB(){
 
 
 func getAllBooks(c *gin.Context) {
+
     var rows *sql.Rows
     var err error
+
     // ลูกค้าถาม "มีหนังสืออะไรบ้าง"
     rows, err = db.Query("SELECT id, title, author, isbn, year, price, created_at, updated_at FROM books")
     if err != nil {
