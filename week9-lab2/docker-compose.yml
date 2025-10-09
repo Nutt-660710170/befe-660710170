@@ -2,7 +2,7 @@ services:
   fontend:
     build: ./store-app
     ports:
-      - "3001:80"
+      - "3000:80"
     restart: unless-stopped
 
     healthcheck:
