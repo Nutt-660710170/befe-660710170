@@ -17,14 +17,14 @@ const docTemplate = `{
     "paths": {
         "/books": {
             "get": {
-                "description": "List all books (optional filter by ?year=YYYY)",
+                "description": "Get details of book",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Books"
                 ],
-                "summary": "Get all books",
+                "summary": "Get all book",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -35,8 +35,8 @@ const docTemplate = `{
                             }
                         }
                     },
-                    "500": {
-                        "description": "Internal Server Error",
+                    "404": {
+                        "description": "Not Found",
                         "schema": {
                             "$ref": "#/definitions/main.ErrorResponse"
                         }
@@ -44,7 +44,7 @@ const docTemplate = `{
                 }
             },
             "post": {
-                "description": "Create a new book",
+                "description": "Add a new book record into the system",
                 "consumes": [
                     "application/json"
                 ],
@@ -91,6 +91,9 @@ const docTemplate = `{
         "/books/new": {
             "get": {
                 "description": "Get latest books ordered by created date",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -98,6 +101,14 @@ const docTemplate = `{
                     "Books"
                 ],
                 "summary": "Get new books",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Number of books to return (default 5)",
+                        "name": "limit",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -119,7 +130,7 @@ const docTemplate = `{
         },
         "/books/{id}": {
             "get": {
-                "description": "Retrieve a single book by its ID",
+                "description": "Get detail of a single book by its ID",
                 "produces": [
                     "application/json"
                 ],
@@ -148,17 +159,11 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/main.ErrorResponse"
                         }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/main.ErrorResponse"
-                        }
                     }
                 }
             },
             "put": {
-                "description": "Update book details by ID",
+                "description": "Update the details of a book record",
                 "consumes": [
                     "application/json"
                 ],
@@ -168,7 +173,7 @@ const docTemplate = `{
                 "tags": [
                     "Books"
                 ],
-                "summary": "Update an existing book",
+                "summary": "Update book by ID",
                 "parameters": [
                     {
                         "type": "integer",
@@ -205,24 +210,18 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/main.ErrorResponse"
                         }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/main.ErrorResponse"
-                        }
                     }
                 }
             },
             "delete": {
-                "description": "Delete a book by its ID",
+                "description": "Remove a book record from the database",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
                     "Books"
                 ],
-                "summary": "Delete a book",
+                "summary": "Delete book by ID",
                 "parameters": [
                     {
                         "type": "integer",
@@ -244,12 +243,6 @@ const docTemplate = `{
                     },
                     "404": {
                         "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/main.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/main.ErrorResponse"
                         }

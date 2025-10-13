@@ -33,7 +33,7 @@ info:
 paths:
   /books:
     get:
-      description: List all books (optional filter by ?year=YYYY)
+      description: Get details of book
       produces:
       - application/json
       responses:
@@ -43,17 +43,17 @@ paths:
             items:
               $ref: '#/definitions/main.Book'
             type: array
-        "500":
-          description: Internal Server Error
+        "404":
+          description: Not Found
           schema:
             $ref: '#/definitions/main.ErrorResponse'
-      summary: Get all books
+      summary: Get all book
       tags:
       - Books
     post:
       consumes:
       - application/json
-      description: Create a new book
+      description: Add a new book record into the system
       parameters:
       - description: Book Data
         in: body
@@ -81,7 +81,7 @@ paths:
       - Books
   /books/{id}:
     delete:
-      description: Delete a book by its ID
+      description: Remove a book record from the database
       parameters:
       - description: Book ID
         in: path
@@ -101,15 +101,11 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/main.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/main.ErrorResponse'
-      summary: Delete a book
+      summary: Delete book by ID
       tags:
       - Books
     get:
-      description: Retrieve a single book by its ID
+      description: Get detail of a single book by its ID
       parameters:
       - description: Book ID
         in: path
@@ -127,17 +123,13 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/main.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/main.ErrorResponse'
       summary: Get book by ID
       tags:
       - Books
     put:
       consumes:
       - application/json
-      description: Update book details by ID
+      description: Update the details of a book record
       parameters:
       - description: Book ID
         in: path
@@ -165,16 +157,19 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/main.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/main.ErrorResponse'
-      summary: Update an existing book
+      summary: Update book by ID
       tags:
       - Books
   /books/new:
     get:
+      consumes:
+      - application/json
       description: Get latest books ordered by created date
+      parameters:
+      - description: Number of books to return (default 5)
+        in: query
+        name: limit
+        type: integer
       produces:
       - application/json
       responses:
