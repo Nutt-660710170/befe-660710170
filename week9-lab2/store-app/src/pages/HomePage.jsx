@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRightIcon, BookOpenIcon, TruckIcon, ShieldCheckIcon } from '@heroicons/react/outline';
 import BookCard from '../components/BookCard';
-
+import FeaturedBooks from '../components/FeaturedBooks';
 
 
 const HomePage = () => {
@@ -51,9 +51,9 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-sky-200">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-viridian-600 to-green-700 text-black">
+      <section className="relative bg-gradient-to-r from-blue-600 to-green-700 text-black">
         <div className="container mx-auto px-4 py-24">
           <div className="max-w-3xl">
             <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">
@@ -94,8 +94,8 @@ const HomePage = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center group">
-              <div className="bg-yellow-100 p-4 rounded-full w-20 h-20 mx-auto mb-4 
-                group-hover:bg-yellow-200 transition-colors">
+              <div className="bg-viridian-100 p-4 rounded-full w-20 h-20 mx-auto mb-4 
+                group-hover:bg-viridian-200 transition-colors">
                 <TruckIcon className="h-12 w-12 text-viridian-600" />
               </div>
               <h3 className="text-xl font-semibold mb-2">จัดส่งฟรี</h3>
@@ -149,6 +149,7 @@ const HomePage = () => {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">หนังสือแนะนำ</h2>
+          <FeaturedBooks/>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredBooks.map(book => (
               <BookCard key={book.id} book={book} />
